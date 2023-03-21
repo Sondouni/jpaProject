@@ -1,6 +1,7 @@
 package com.son.jpaproject.board;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -13,15 +14,22 @@ import java.util.Objects;
 @RequestMapping("/api/board")
 public class BoardController {
 
-    private final BoardEntityRepository boardEntityRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final BoardService boardService;
 
     @GetMapping
-    public HashMap<String,Objects> getBoardList () {
-        HashMap<String,Objects> resultMap = new HashMap<>();
+    public HashMap<String,Object> getBoardList () {
+        HashMap<String,Object> resultMap = new HashMap<>();
+        resultMap.put("data",boardService.getBoardList());
 
+
+        return resultMap;
+    }
+
+    @GetMapping("/list")
+    public HashMap<String,Object> getBoardListEntityManager () {
+        HashMap<String,Object> resultMap = new HashMap<>();
+        resultMap.put("data",boardService.getBoardListEntityManager());
 
 
         return resultMap;
@@ -35,9 +43,9 @@ public class BoardController {
     }
 
     @PostMapping
-    public BoardEntity insertBoard (@RequestBody HashMap<String, Objects> paramMap) {
-        BoardEntity boardEntity = new BoardEntity();
-
-        return boardEntity;
+    public HashMap<String,Object> insertBoard (@RequestBody BoardEntity boardEntity) {
+        HashMap<String,Object> resultMap = new HashMap<>();
+        resultMap.put("data",boardService.insertBoard(boardEntity));
+        return resultMap;
     }
 }
