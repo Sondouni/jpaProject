@@ -47,4 +47,25 @@ public class BoardService {
 
         return resultMap;
     }
+
+    @Transactional
+    public HashMap<String, Object> updateBoard (BoardEntity paramMap){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        BoardEntity boardEntity = entityManager.find(BoardEntity.class,paramMap.getBoardCd());
+        boardEntity.setTitle(paramMap.getTitle());
+        boardEntity.setContent(paramMap.getContent());
+        List<BoardEntity> boardEntityList = entityManager.createQuery("select b from BoardEntity b",BoardEntity.class).getResultList();
+        resultMap.put("list",boardEntityList);
+        return resultMap;
+    }
+
+    @Transactional
+    public HashMap<String, Object> deleteBoard (BoardEntity paramMap){
+        HashMap<String,Object> resultMap = new HashMap<>();
+        BoardEntity boardEntity = entityManager.find(BoardEntity.class,paramMap.getBoardCd());
+        entityManager.remove(boardEntity);
+        List<BoardEntity> boardEntityList = entityManager.createQuery("select b from BoardEntity b",BoardEntity.class).getResultList();
+        resultMap.put("list",boardEntityList);
+        return resultMap;
+    }
 }

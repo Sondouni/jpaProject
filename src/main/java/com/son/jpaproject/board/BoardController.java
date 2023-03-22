@@ -48,4 +48,19 @@ public class BoardController {
         resultMap.put("data",boardService.insertBoard(boardEntity));
         return resultMap;
     }
+
+    @PutMapping
+    public HashMap<String,Object> updateBoard (@RequestBody BoardEntity boardEntity) {
+        HashMap<String,Object> resultMap = new HashMap<>();
+        resultMap.put("data",boardService.updateBoard(boardEntity));
+        return resultMap;
+    }
+
+    @DeleteMapping
+    public HashMap<String,Object> deleteBoard (@RequestBody BoardEntity boardEntity) {
+        System.out.println(boardEntity.toString());
+        HashMap<String,Object> resultMap = new HashMap<>();
+        resultMap.put("data",boardService.deleteBoard(boardEntity));
+        return resultMap;
+    }
 }
