@@ -30,7 +30,7 @@ public class BoardController {
     public HashMap<String,Object> getBoardListEntityManager () {
         HashMap<String,Object> resultMap = new HashMap<>();
         resultMap.put("data",boardService.getBoardListEntityManager());
-
+        String test = "TEST";
 
         return resultMap;
     }
